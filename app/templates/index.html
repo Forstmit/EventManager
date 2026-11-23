@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventManager — организация мероприятий</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-icon">E</span><div><b>EventManager</b><small>Панель управления мероприятиями</small></div></div>
+  <nav><a href="#dashboard">Обзор</a><a href="#events">Мероприятия</a><a href="/docs" target="_blank">API</a></nav>
+</header>
+<main class="container">
+  <section class="welcome">
+    <div><p class="eyebrow">EVENT MANAGEMENT SYSTEM</p><h1>Организуйте события<br><span>без лишней суеты.</span></h1>
+    <p class="muted">Создавайте мероприятия, контролируйте регистрацию и отслеживайте статистику в одном месте.</p></div>
+    <div class="welcome-mark">✦</div>
+  </section>
+  <section id="dashboard" class="stats">
+    <article class="stat-card"><span>Всего мероприятий</span><strong id="total">0</strong><small>В системе</small></article>
+    <article class="stat-card"><span>Запланировано</span><strong id="planned">0</strong><small>Ожидают проведения</small></article>
+    <article class="stat-card"><span>В процессе</span><strong id="in_progress">0</strong><small>Проходят сейчас</small></article>
+    <article class="stat-card"><span>Участники</span><strong id="participants">0</strong><small>Зарегистрировано</small></article>
+  </section>
+  <section class="content-grid">
+    <section class="panel form-panel">
+      <div class="section-heading"><div><p class="eyebrow">НОВОЕ СОБЫТИЕ</p><h2 id="form-title">Создать мероприятие</h2></div></div>
+      <form id="event-form">
+        <input type="hidden" id="event-id">
+        <label>Название мероприятия<input id="title" required minlength="2" maxlength="120" placeholder="Например, IT-конференция"></label>
+        <label>Место проведения<input id="location" required minlength="2" placeholder="Город, площадка или адрес"></label>
+        <label>Дата и время<input id="event_date" type="datetime-local" required></label>
+        <div class="two-cols">
+          <label>Лимит участников<input id="max_attendees" type="number" min="1" value="100" required></label>
+          <label>Статус<select id="status"><option>Запланировано</option><option>В процессе</option><option>Завершено</option><option>Отменено</option></select></label>
+        </div>
+        <label>Описание<textarea id="description" rows="3" placeholder="Краткая информация о событии"></textarea></label>
+        <div class="form-actions"><button class="primary" type="submit" id="submit-btn">Добавить мероприятие</button><button class="secondary hidden" type="button" id="cancel-edit">Отмена</button></div>
+      </form>
+      <p id="message" class="message" role="status"></p>
+    </section>
+    <section class="panel chart-panel">
+      <div class="section-heading"><div><p class="eyebrow">АНАЛИТИКА</p><h2>Статусы мероприятий</h2></div></div>
+      <div class="chart-wrap"><canvas id="status-chart"></canvas></div>
+      <div class="chart-note">Распределение событий по текущим статусам</div>
+    </section>
+  </section>
+  <section id="events" class="panel events-panel">
+    <div class="section-heading events-heading"><div><p class="eyebrow">ВАШ КАЛЕНДАРЬ СОБЫТИЙ</p><h2>Все мероприятия</h2></div><button class="secondary" onclick="loadEvents()">↻ Обновить</button></div>
+    <div class="table-wrap"><table><thead><tr><th>Мероприятие</th><th>Дата</th><th>Место</th><th>Статус</th><th>Участники</th><th>Действия</th></tr></thead><tbody id="events-body"><tr><td colspan="6" class="empty">Загрузка...</td></tr></tbody></table></div>
+  </section>
+  <footer>EventManager · Лабораторная работа №3 · Вариант 18</footer>
+</main>
+<script src="/static/script.js"></script>
+</body></html>
